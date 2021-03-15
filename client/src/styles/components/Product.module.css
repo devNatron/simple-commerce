@@ -1,0 +1,26 @@
+.product{
+    background: var(--white);
+
+    padding: 15px 15px 40px;
+}
+
+.product .imagem{
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    cursor: pointer;
+
+    border: solid 1px black;
+}
+
+.product .imagem:hover{
+}
+
+.product .descripton h2{
+    font-family: "rajdhani";
+    color: var(--title);
+}
+
+.product .descripton p{
+    
+}
