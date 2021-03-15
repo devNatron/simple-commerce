@@ -1,0 +1,39 @@
+.ShoppingCart{
+    position: fixed;
+    top: 10px;
+    right: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+    background: var(--white);
+
+    width: 60px;
+    height: 60px;
+
+    cursor: pointer;
+}
+
+.icon{
+    font-size: 1.5rem;
+}
+
+.numberProducts{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 1.2rem;
+    height: 1.2rem;
+
+    color: var(--red);
+
+    border-radius: 50%;
+    background-color: var(--white);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

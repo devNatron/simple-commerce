@@ -1,18 +1,35 @@
+import { useContext } from 'react'
+import { ShoppingCartContext } from '../contexts/ShoppingCartContext'
 import styles from '../styles/components/Product.module.css'
 
-export function Product(){
+export type ProductProps = {
+    id: number,
+    title: string,
+    value: number,
+    description: string,
+    image: string,
+}
+
+export function Product(props: ProductProps){
+    const {addProductToCart} = useContext(ShoppingCartContext)
+    
+    function handleClick(e){
+        addProductToCart(props)
+    }
+
     return(
         <div className={styles.product}>
             <img 
-                //src="https://source.unsplash.com/random/800x600" 
-                src="/images/minions/minion_1_img1.webp" 
-                alt="minion"
+                src={props.image} 
                 className={styles.imagem}
+                onClick={handleClick}
             />
             <div className={styles.descripton}>
-                <h2>Minion</h2>
+                <h2>
+                    {props.title}
+                </h2>
                 <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde maxime excepturi.
+                    {props.description}
                 </p>
             </div>
         </div>
