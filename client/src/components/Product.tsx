@@ -5,9 +5,9 @@ import styles from '../styles/components/Product.module.css'
 export type ProductProps = {
     id: number,
     title: string,
-    value: number,
+    price: number,
     description: string,
-    image: string,
+    image: string[],
 }
 
 export function Product(props: ProductProps){
@@ -20,7 +20,7 @@ export function Product(props: ProductProps){
     return(
         <div className={styles.product}>
             <img 
-                src={props.image} 
+                src={props.image[0]} 
                 className={styles.imagem}
                 onClick={handleClick}
             />

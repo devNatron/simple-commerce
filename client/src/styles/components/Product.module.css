@@ -1,7 +1,7 @@
 .product{
     background: var(--white);
 
-    padding: 15px 15px 40px;
+    padding: 15px 15px 20px;
 }
 
 .product .imagem{
@@ -13,14 +13,7 @@
     border: solid 1px black;
 }
 
-.product .imagem:hover{
-}
-
 .product .descripton h2{
     font-family: "rajdhani";
     color: var(--title);
-}
-
-.product .descripton p{
-    
 }

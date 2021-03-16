@@ -6,10 +6,14 @@ import { ShoppingCartContext } from '../contexts/ShoppingCartContext'
 import { useContext } from 'react'
 
 export function ShoppingCart(){
-    const {numberSelectedProducts} = useContext(ShoppingCartContext)
+    const {numberSelectedProducts, openCartModal} = useContext(ShoppingCartContext)
+
+    function openCart(){
+        openCartModal()
+    }
 
     return(
-        <div className={styles.ShoppingCart}>
+        <div className={styles.ShoppingCart} onClick={openCart}>
             <div className={styles.numberProducts}>
                 {numberSelectedProducts}
             </div>

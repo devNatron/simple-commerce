@@ -1,6 +1,6 @@
 .ShoppingCart{
     position: fixed;
-    top: 10px;
+    top: 20px;
     right: 20px;
 
     display: flex;
@@ -8,6 +8,7 @@
     align-items: center;
 
     border-radius: 50%;
+    border: 1px solid var(--text);
     background: var(--white);
 
     width: 60px;
@@ -22,12 +23,13 @@
 
 .numberProducts{
     position: absolute;
-    top: 0;
+    top: -0.5rem;
     right: 0;
 
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1.5rem;
+    height: 1.5rem;
 
+    font-weight: bold;
     color: var(--red);
 
     border-radius: 50%;
