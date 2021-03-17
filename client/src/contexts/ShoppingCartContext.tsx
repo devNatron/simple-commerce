@@ -1,7 +1,11 @@
-import {createContext, ReactNode, useEffect, useState} from 'react'
+import {createContext, ReactNode, useState} from 'react'
 
 import {ProductProps} from '../components/Product'
 import { ShoppingCartModal } from '../components/ShoppingCartModal';
+
+import axios from 'axios'
+
+const MAILER_URL = process.env.REACT_APP_MAILER_URL
 
 type ShoppingCartContextProps = {
     numberSelectedProducts: number,
@@ -9,6 +13,7 @@ type ShoppingCartContextProps = {
     addProductToCart: (product: Partial<ShoppingCartProductProps>) => void,
     openCartModal: () => void,
     closeCartModal: () => void,
+    checkOut: () => void,
 }
 
 type ShoppingCartProviderProps = {
@@ -48,6 +53,22 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
         setNumberSelectedProducts(numberSelectedProducts + 1)
     }
 
+    async function checkOut(nome: string, email: string){
+        const data = {
+            clientEmail: email,
+            subject: "[Minions Store] - Pedido realizado com sucesso!",
+            text: "vlw por comprar parceiro!",
+        }
+
+        await axios.post(MAILER_URL, data)
+        .then(res => {
+            console.log(JSON.stringify(res))
+        })
+        .catch(res => {
+            console.log(JSON.stringify(res))
+        })
+    }
+
     function openCartModal(){
         setCartModalOpen(true)
     }
@@ -63,6 +84,7 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
             addProductToCart,
             openCartModal,
             closeCartModal,
+            checkOut,
         }}>
             {children}
             {isCartModalOpen && <ShoppingCartModal/>}

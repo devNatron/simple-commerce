@@ -1,12 +1,15 @@
 import styles from '../styles/components/Form.module.css'
+import { useContext } from 'react'
+import { ShoppingCartContext } from '../contexts/ShoppingCartContext';
 
 export function Form(){
+    const {checkOut} = useContext(ShoppingCartContext)
 
     function handleSubmit(e){
         e.preventDefault();
         const form = e.target
         const fields = form.elements
-        console.log(fields.Email.value)
+        checkOut(fields.nome.value, fields.email.value)
     }
 
     return(
@@ -15,8 +18,8 @@ export function Form(){
                 <h2>Finalizar Pedido</h2>
             </header>
             <form onSubmit={handleSubmit}>
-                <input type="text" name="Nome" id="inputName" placeholder="Nome"/>
-                <input type="email" name="Email" id="inputEmail" placeholder="E-mail"/>
+                <input type="text" name="nome" id="inputName" placeholder="Nome"/>
+                <input type="email" name="email" id="inputEmail" placeholder="E-mail"/>
                 <button 
                     type="submit"
                 >
