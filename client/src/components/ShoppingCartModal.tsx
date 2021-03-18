@@ -1,26 +1,51 @@
 import styles from '../styles/components/ShoppingCartModal.module.css'
+import React, { useContext } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { useContext } from 'react'
-import { ShoppingCartContext } from '../contexts/ShoppingCartContext'
+import { faShoppingCart, faTimes, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { ShoppingCartContext, ShoppingCartProductProps } from '../contexts/ShoppingCartContext'
 
 export function ShoppingCartModal(){
-    const {closeCartModal, cartProducts} = useContext(ShoppingCartContext)
+    const {closeCartModal, cartProducts, increaseProductInCart, decreaseProductInCart, removeProductToCart } = useContext(ShoppingCartContext)
     
     function closeCart(){
         closeCartModal()
     }
 
+    function hundleIncrease(id: number){
+        increaseProductInCart(id)
+    }
+
+    function hundleDecrease(id: number){
+        decreaseProductInCart(id)
+    }
+
     return(
         <div className={styles.overlay}>
             <div className={styles.modalContainer}>
-                <header>Carrinho</header>
+                <header>
+                    <h2>Carrinho</h2>
+                    <FontAwesomeIcon icon={faShoppingCart} className={styles.icon}/>
+                </header>
                 <div className={styles.cartContainer}>
-                    {cartProducts.map(({title, amount})=>{
+                    {cartProducts.map(({id, title, amount, price, image}: ShoppingCartProductProps, index)=>{
                         return (
-                            <div className={styles.item}>
-                                {title} {amount}
+                            <div className={styles.item} key={index}>
+                                <img src={image[0]} alt="Imagem ilustrativa do produto"/>
+                                <p className={styles.productName}>{title}</p>
+                                <p className={styles.productPrice}>{(price * amount).toFixed(2)} R$</p>
+                                <div className={styles.amountBox}>
+                                    <p>
+                                        <button onClick={()=>hundleDecrease(id)}>
+                                            <FontAwesomeIcon icon={faMinus} className={styles.icon}/>
+                                        </button>
+                                        {amount}
+                                        <button onClick={()=>hundleIncrease(id)}>
+                                            <FontAwesomeIcon icon={faPlus} className={styles.icon}/>
+                                        </button>
+                                    </p>
+                                </div>
+                                
                             </div>
                         )
                     })}

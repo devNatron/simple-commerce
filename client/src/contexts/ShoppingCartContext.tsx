@@ -1,4 +1,4 @@
-import {createContext, ReactNode, useState} from 'react'
+import React, {createContext, ReactNode, useState} from 'react'
 
 import {ProductProps} from '../components/Product'
 import { ShoppingCartModal } from '../components/ShoppingCartModal';
@@ -10,17 +10,20 @@ const MAILER_URL = process.env.REACT_APP_MAILER_URL
 type ShoppingCartContextProps = {
     numberSelectedProducts: number,
     cartProducts: ShoppingCartProductProps[],
-    addProductToCart: (product: Partial<ShoppingCartProductProps>) => void,
+    addProductToCart: (product: ShoppingCartProductProps) => void,
+    removeProductToCart: (id: number) => void,
+    increaseProductInCart: (id: number) => boolean,
+    decreaseProductInCart: (id: number) => boolean,
     openCartModal: () => void,
     closeCartModal: () => void,
-    checkOut: () => void,
+    checkOut: (nome: string, email: string) => void,
 }
 
 type ShoppingCartProviderProps = {
     children: ReactNode
 }
 
-type ShoppingCartProductProps = ProductProps & {
+export type ShoppingCartProductProps = ProductProps & {
     amount: number,
 }
 
@@ -28,29 +31,76 @@ export const ShoppingCartContext = createContext({} as ShoppingCartContextProps)
 
 export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
     const [numberSelectedProducts, setNumberSelectedProducts] = useState(0)
-    const [cartProducts, setProduct] = useState([])
+    const [cartProducts, setProduct] = useState<ShoppingCartProductProps[]>([])
     const [isCartModalOpen, setCartModalOpen] = useState(false)
 
     function addProductToCart(product: ShoppingCartProductProps){
+        const inCart = increaseProductInCart(product.id)
+
+        //caso o produto não esteja no carrinho, insere no carrinho
+        if(!inCart){
+            const newCartProduct: ShoppingCartProductProps = {...product}
+
+            newCartProduct.amount = 1;
+            setProduct([...cartProducts, newCartProduct])
+            
+            setNumberSelectedProducts(numberSelectedProducts + 1)
+        }
+    }
+
+    function removeProductToCart(productId: number){
+        let amount = 0
+
+        cartProducts.forEach(({id}, index: number) => {
+            if(id === productId){
+                amount = cartProducts[index].amount
+                delete cartProducts[index]
+            }
+        })
+
+        setNumberSelectedProducts(numberSelectedProducts - amount)
+    }
+
+    function increaseProductInCart(productId: number){
         let inCart = false
-        
-        //verifica de o produto ja está no carrinho, se estiver apenas aumenta a quantidade
-        cartProducts.forEach(({id}, index) => {
-            if(id === product.id){
-                cartProducts[index].amount += 1
+
+        cartProducts.forEach(({id}, index: number) => {
+            if(id === productId){
+
+                if(cartProducts[index].amount >= 99){
+                    cartProducts[index].amount = 99
+                }
+                else{
+                    cartProducts[index].amount += 1
+                    setNumberSelectedProducts(numberSelectedProducts + 1)
+                }
+                
                 inCart = true;
             }
         })
 
-        //caso o produto não esteja no carrinho, insere no carrinho
-        if(!inCart){
-            let newCartProduct: ShoppingCartProductProps = {...product}
+        return inCart
+    }
 
-            newCartProduct.amount = 1;
-            setProduct([...cartProducts, newCartProduct])
-        }
-        
-        setNumberSelectedProducts(numberSelectedProducts + 1)
+    function decreaseProductInCart(productId: number){
+        let inCart = false
+
+        cartProducts.forEach(({id}, index: number) => {
+            if(id === productId){
+                
+                if(cartProducts[index].amount <= 1){
+                    cartProducts[index].amount = 1
+                }
+                else{
+                    cartProducts[index].amount -= 1
+                    setNumberSelectedProducts(numberSelectedProducts - 1)
+                }
+
+                inCart = true;
+            }
+        })
+
+        return inCart
     }
 
     async function checkOut(nome: string, email: string){
@@ -60,7 +110,7 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
             text: "vlw por comprar parceiro!",
         }
 
-        await axios.post(MAILER_URL, data)
+        await axios.post(MAILER_URL!, data)
         .then(res => {
             console.log(JSON.stringify(res))
         })
@@ -82,6 +132,9 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
             numberSelectedProducts,
             cartProducts,
             addProductToCart,
+            removeProductToCart,
+            increaseProductInCart,
+            decreaseProductInCart,
             openCartModal,
             closeCartModal,
             checkOut,

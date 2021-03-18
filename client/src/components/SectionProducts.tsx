@@ -1,3 +1,5 @@
+import React from 'react'
+
 import styles from '../styles/components/SectionProducts.module.css'
 import { Product } from './Product'
 

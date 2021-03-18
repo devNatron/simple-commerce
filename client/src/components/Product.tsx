@@ -1,5 +1,5 @@
-import { useContext } from 'react'
-import { ShoppingCartContext } from '../contexts/ShoppingCartContext'
+import React, { useContext } from 'react'
+import { ShoppingCartContext, ShoppingCartProductProps } from '../contexts/ShoppingCartContext'
 import styles from '../styles/components/Product.module.css'
 
 export type ProductProps = {
@@ -13,8 +13,8 @@ export type ProductProps = {
 export function Product(props: ProductProps){
     const {addProductToCart} = useContext(ShoppingCartContext)
     
-    function handleClick(e){
-        addProductToCart(props)
+    function handleClick(){
+        addProductToCart(props as ShoppingCartProductProps)
     }
 
     return(
@@ -23,6 +23,7 @@ export function Product(props: ProductProps){
                 src={props.image[0]} 
                 className={styles.imagem}
                 onClick={handleClick}
+                alt="Imagem ilustrativa do produto"
             />
             <div className={styles.descripton}>
                 <h2>
