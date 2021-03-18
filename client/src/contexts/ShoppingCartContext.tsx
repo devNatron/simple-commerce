@@ -11,7 +11,7 @@ type ShoppingCartContextProps = {
     numberSelectedProducts: number,
     cartProducts: ShoppingCartProductProps[],
     addProductToCart: (product: ShoppingCartProductProps) => void,
-    removeProductToCart: (id: number) => void,
+    removeProductInCart: (id: number) => void,
     increaseProductInCart: (id: number) => boolean,
     decreaseProductInCart: (id: number) => boolean,
     openCartModal: () => void,
@@ -48,13 +48,14 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
         }
     }
 
-    function removeProductToCart(productId: number){
+    function removeProductInCart(productId: number){
         let amount = 0
 
         cartProducts.forEach(({id}, index: number) => {
             if(id === productId){
                 amount = cartProducts[index].amount
-                delete cartProducts[index]
+                cartProducts.splice(index, 1)
+                setProduct([...cartProducts])
             }
         })
 
@@ -63,7 +64,7 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
 
     function increaseProductInCart(productId: number){
         let inCart = false
-
+        console.log(cartProducts)
         cartProducts.forEach(({id}, index: number) => {
             if(id === productId){
 
@@ -74,7 +75,7 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
                     cartProducts[index].amount += 1
                     setNumberSelectedProducts(numberSelectedProducts + 1)
                 }
-                
+
                 inCart = true;
             }
         })
@@ -132,7 +133,7 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
             numberSelectedProducts,
             cartProducts,
             addProductToCart,
-            removeProductToCart,
+            removeProductInCart,
             increaseProductInCart,
             decreaseProductInCart,
             openCartModal,
