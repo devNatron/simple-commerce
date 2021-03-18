@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { ShoppingCartContext, ShoppingCartProductProps } from '../contexts/ShoppingCartContext'
-import styles from '../styles/components/Product.module.css'
+import styles from '../styles/components/ProductCard.module.css'
 
 export type ProductProps = {
     id: number,
@@ -10,7 +10,7 @@ export type ProductProps = {
     image: string[],
 }
 
-export function Product(props: ProductProps){
+export function ProductCard(props: ProductProps){
     const {addProductToCart} = useContext(ShoppingCartContext)
     
     function handleClick(){
@@ -21,17 +21,23 @@ export function Product(props: ProductProps){
         <div className={styles.product}>
             <img 
                 src={props.image[0]} 
-                className={styles.imagem}
                 onClick={handleClick}
+                className={styles.imagem}
                 alt="Imagem ilustrativa do produto"
             />
-            <div className={styles.descripton}>
+            <div className={styles.productInfo}>
                 <h2>
                     {props.title}
                 </h2>
-                <p>
+                <p className={styles.descripton}>
                     {props.description}
                 </p>
+                <div className={styles.priceBox}>
+                    <p>R$ {props.price}</p>
+                    <button onClick={handleClick}>
+                        adicionar ao carrinho
+                    </button>
+                </div>
             </div>
         </div>
     )

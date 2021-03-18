@@ -1,6 +1,6 @@
 import React, {createContext, ReactNode, useState} from 'react'
 
-import {ProductProps} from '../components/Product'
+import {ProductProps} from '../components/ProductCard'
 import { ShoppingCartModal } from '../components/ShoppingCartModal';
 
 import axios from 'axios'
@@ -64,7 +64,7 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
 
     function increaseProductInCart(productId: number){
         let inCart = false
-        console.log(cartProducts)
+
         cartProducts.forEach(({id}, index: number) => {
             if(id === productId){
 
@@ -105,10 +105,19 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
     }
 
     async function checkOut(nome: string, email: string){
+        let order : Omit<ShoppingCartProductProps, 'image'>[] = []
+
+        order = cartProducts.map(product => {
+            const {image, ...ordered} = product
+            return ordered
+        });
+
         const data = {
+            nome: nome,
             clientEmail: email,
             subject: "[Minions Store] - Pedido realizado com sucesso!",
             text: "vlw por comprar parceiro!",
+            order
         }
 
         await axios.post(MAILER_URL!, data)

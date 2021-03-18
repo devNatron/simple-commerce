@@ -1,0 +1,45 @@
+.product{
+    background: var(--white);
+    max-width: 250px;
+    padding: 15px 15px 20px;
+}
+
+.product .imagem{
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    cursor: pointer;
+
+    border: solid 1px black;
+}
+
+.product .descripton{
+    font-size: 0.9rem;
+}
+
+.product .productInfo h2{
+    font-family: "rajdhani";
+    color: var(--title);
+}
+
+.product .priceBox{
+    margin-top: 0.5rem;
+    color: var(--title);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product .priceBox button{
+    border-radius: 0;
+    border: 1px solid black;
+    outline: none;
+
+    background: transparent;
+
+    text-align: center;
+    padding: 0px 5px;
+    
+    font-size: 0.8rem;
+}

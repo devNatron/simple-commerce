@@ -39,7 +39,7 @@ export function ShoppingCartModal(){
                                 <div className={styles.item} key={index}>
                                     <img src={image[0]} alt="Imagem ilustrativa do produto"/>
                                     <p className={styles.productName}>{title}</p>
-                                    <p className={styles.productPrice}>{(price * amount).toFixed(2)} R$</p>
+                                    <p className={styles.productPrice}>R$ {(price * amount).toFixed(2)}</p>
                                     <div className={styles.amountBox}>
                                         <p>
                                             <button onClick={()=>hundleDecrease(id)}>

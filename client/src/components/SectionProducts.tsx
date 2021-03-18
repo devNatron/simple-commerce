@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styles from '../styles/components/SectionProducts.module.css'
-import { Product } from './Product'
+import { ProductCard } from './ProductCard'
 
 import products from '../examples/products'
 
@@ -10,7 +10,7 @@ export function SectionProducts(){
         <div className={styles.container}>
             {products.map(({id, title, price, description, images }, index) => {
                 return (
-                    <Product
+                    <ProductCard
                         key={index} 
                         id={id}
                         title={title}
