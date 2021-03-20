@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart, faTimes, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons' 
 import { ShoppingCartContext, ShoppingCartProductProps } from '../contexts/ShoppingCartContext'
+import { Modal } from './Modal'
 
 export function ShoppingCartModal(){
     const {closeCartModal, cartProducts, increaseProductInCart, decreaseProductInCart, removeProductInCart, numberSelectedProducts} = useContext(ShoppingCartContext)
@@ -26,9 +27,9 @@ export function ShoppingCartModal(){
     }
 
     return(
-        <div className={styles.overlay}>
-            <div className={styles.modalContainer}>
-                <header>
+        <Modal closeModal={closeCart}>
+            <div className={styles.modalWrapper}>
+                <header className={styles.modalHeader}>
                     <h2>Carrinho</h2>
                     <FontAwesomeIcon icon={faShoppingCart} className={styles.icon}/>
                 </header>
@@ -59,10 +60,7 @@ export function ShoppingCartModal(){
                         })}
                     </div>
                 }
-                <button type="button" onClick={closeCart} className={styles.closeButton}>
-                    <FontAwesomeIcon icon={faTimes} className={styles.icon}/>
-                </button>
             </div>
-        </div>
+        </Modal>
     )
 }

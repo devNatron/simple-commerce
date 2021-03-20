@@ -1,0 +1,17 @@
+.headerContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.headerContainer h1{
+    font-family: 'Moderna';
+    font-size: 3rem;
+    text-transform: uppercase;
+    color: var(--title);
+}
+
+.headerContainer img{
+    margin-left: 1rem;
+    width: 3rem;
+}

@@ -1,0 +1,29 @@
+.orderModalWrapper{
+
+}
+
+.orderModalHeader{
+    margin-bottom: 1rem;
+
+    color: var(--title);
+    font-weight: 600;
+    font-size: 2rem;
+    font-family: "Rajdhani", "Inter", "sans-serif";
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resultWrapper p{
+    font-size: 1.2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resultWrapper .minionGif{
+    width: 2rem;
+    margin: 0px 5px;
+}

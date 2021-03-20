@@ -21,6 +21,18 @@
     font-size: 1.5rem;
 }
 
+@keyframes addProductEffect {
+    0% {background-color: var(--white);}
+    50% {background-color: var(--green);}
+    100% {background-color: var(--white);}
+}
+
+.ShoppingCart.ProductEffect{
+    background-color: var(--white);
+    animation-name: addProductEffect;
+    animation-duration: 0.5s;
+}
+
 .numberProducts{
     position: absolute;
     top: -0.5rem;

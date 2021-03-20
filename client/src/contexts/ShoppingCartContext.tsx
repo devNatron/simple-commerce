@@ -4,6 +4,7 @@ import {ProductProps} from '../components/ProductCard'
 import { ShoppingCartModal } from '../components/ShoppingCartModal';
 
 import axios from 'axios'
+import { OrderModal } from '../components/OrderModal';
 
 const MAILER_URL = process.env.REACT_APP_MAILER_URL
 
@@ -16,6 +17,8 @@ type ShoppingCartContextProps = {
     decreaseProductInCart: (id: number) => boolean,
     openCartModal: () => void,
     closeCartModal: () => void,
+    openOrderModal: () => void,
+    closeOrderModal: () => void,
     checkOut: (nome: string, email: string) => void,
 }
 
@@ -33,6 +36,7 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
     const [numberSelectedProducts, setNumberSelectedProducts] = useState(0)
     const [cartProducts, setProduct] = useState<ShoppingCartProductProps[]>([])
     const [isCartModalOpen, setCartModalOpen] = useState(false)
+    const [isOrderModalOpen, setOrderModalOpen] = useState(false)
 
     function addProductToCart(product: ShoppingCartProductProps){
         const inCart = increaseProductInCart(product.id)
@@ -120,13 +124,15 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
             order
         }
 
-        await axios.post(MAILER_URL!, data)
+        /* await axios.post(MAILER_URL!, data)
         .then(res => {
             console.log(JSON.stringify(res))
         })
         .catch(res => {
             console.log(JSON.stringify(res))
-        })
+        }) */
+
+        setOrderModalOpen(true)
     }
 
     function openCartModal(){
@@ -135,6 +141,14 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
 
     function closeCartModal(){
         setCartModalOpen(false)
+    }
+
+    function openOrderModal(){
+        setOrderModalOpen(true)
+    }
+
+    function closeOrderModal(){
+        setOrderModalOpen(false)
     }
 
     return(
@@ -147,10 +161,13 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
             decreaseProductInCart,
             openCartModal,
             closeCartModal,
+            openOrderModal,
+            closeOrderModal,
             checkOut,
         }}>
             {children}
             {isCartModalOpen && <ShoppingCartModal/>}
+            {isOrderModalOpen && <OrderModal/>}
         </ShoppingCartContext.Provider>
     )
 }

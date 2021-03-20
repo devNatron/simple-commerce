@@ -2,6 +2,10 @@
     background: var(--white);
     max-width: 250px;
     padding: 15px 15px 20px;
+    
+    -webkit-box-shadow: 5px 5px 0px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 0px -2px rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 0px -2px rgba(0,0,0,0.75);
 }
 
 .product .imagem{
@@ -22,13 +26,21 @@
     color: var(--title);
 }
 
+.product .productInfo {
+    position: relative;
+    height: 7rem;
+}
+
 .product .priceBox{
-    margin-top: 0.5rem;
     color: var(--title);
+    width: 100%;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    position: absolute;
+    bottom: 0;
 }
 
 .product .priceBox button{
@@ -42,4 +54,9 @@
     padding: 0px 5px;
     
     font-size: 0.8rem;
+    transition: background ease 0.2s;
+}
+
+.product .priceBox button:hover{
+    background: var(--blue);
 }

@@ -12,6 +12,13 @@
     --blue-twitter: #2AA9E0;
 }
 
+@font-face {
+    font-family: 'Moderna';
+    src: url('../styles/fonts/moderna/webkit/moderna_-webfont.woff2') format('woff2'),
+        url('../styles/fonts/moderna/webkit/moderna_-webfont.woff') format('woff'),
+        url('../styles/fonts/moderna/MODERNA_.TTF') format('truetype');
+}
+
 @media(max-width: 1080px){
     html{
         font-size: 93.75%;

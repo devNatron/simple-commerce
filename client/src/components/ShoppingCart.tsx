@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import styles from '../styles/components/ShoppingCart.module.css'
 
@@ -8,14 +8,23 @@ import { ShoppingCartContext } from '../contexts/ShoppingCartContext'
 
 export function ShoppingCart(){
     const {numberSelectedProducts, openCartModal} = useContext(ShoppingCartContext)
+    const [addProductEffect, setAddProductEffect] = useState(false)
 
     function openCart(){
         openCartModal()
     }
 
+    useEffect(() => {
+        setAddProductEffect(true)
+        
+        setTimeout(() => {
+            setAddProductEffect(false)
+        }, 500);
+    }, [numberSelectedProducts])
+
     return(
-        <div className={styles.ShoppingCart} onClick={openCart}>
-            <div className={styles.numberProducts}>
+        <div className={`${styles.ShoppingCart} ${addProductEffect ? styles.ProductEffect : null}`} onClick={openCart}>
+            <div className={`${styles.numberProducts}`}>
                 {numberSelectedProducts}
             </div>
             <FontAwesomeIcon icon={faShoppingCart} className={styles.icon}/>

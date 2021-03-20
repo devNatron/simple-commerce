@@ -27,7 +27,7 @@ export function Form(){
                 <button 
                     type="submit"
                 >
-                    Fazer Pedido
+                    Enviar Pedido
                 </button>
             </form>
         </div>
