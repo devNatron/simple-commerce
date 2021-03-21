@@ -1,15 +1,19 @@
 import styles from '../styles/components/ShoppingCartModal.module.css'
 import React, { useContext } from 'react'
+import {scroller} from 'react-scroll'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart, faTimes, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons' 
+
 import { ShoppingCartContext, ShoppingCartProductProps } from '../contexts/ShoppingCartContext'
 import { Modal } from './Modal'
 
 export function ShoppingCartModal(){
     const {closeCartModal, cartProducts, increaseProductInCart, decreaseProductInCart, removeProductInCart, numberSelectedProducts} = useContext(ShoppingCartContext)
     
+    let totalPrice = 0
+
     function closeCart(){
         closeCartModal()
     }
@@ -26,6 +30,17 @@ export function ShoppingCartModal(){
         removeProductInCart(id)
     }
 
+    function scrollToForm(){
+        closeCart()
+
+        scroller.scrollTo('Form', {
+            duration: 1500,
+            delay: 100,
+            smooth: true,
+            offset: 50,
+        })
+    }
+
     return(
         <Modal closeModal={closeCart}>
             <div className={styles.modalWrapper}>
@@ -36,6 +51,7 @@ export function ShoppingCartModal(){
                 { numberSelectedProducts <= 0 ? <div>Vazio</div> : 
                     <div className={styles.cartContainer}>
                         {cartProducts.map(({id, title, amount, price, image}: ShoppingCartProductProps, index: number)=>{
+                            {totalPrice += price * amount}
                             return (
                                 <div className={styles.item} key={index}>
                                     <img src={image[0]} alt="Imagem ilustrativa do produto"/>
@@ -58,7 +74,15 @@ export function ShoppingCartModal(){
                                 </div>
                             )
                         })}
+                        <div className={styles.totalOrder}>
+                            <p>Total: R$ {totalPrice.toFixed(2)}</p>
+                        </div>
                     </div>
+                }
+                { numberSelectedProducts > 0 &&
+                    <button onClick={scrollToForm} className={styles.scrollToCheckOut}>
+                        Ir enviar pedido
+                    </button>
                 }
             </div>
         </Modal>

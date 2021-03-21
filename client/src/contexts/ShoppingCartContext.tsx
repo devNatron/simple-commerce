@@ -11,6 +11,8 @@ const MAILER_URL = process.env.REACT_APP_MAILER_URL
 type ShoppingCartContextProps = {
     numberSelectedProducts: number,
     cartProducts: ShoppingCartProductProps[],
+    isWaitingOrder: boolean,
+    isSucceedOrder: boolean,
     addProductToCart: (product: ShoppingCartProductProps) => void,
     removeProductInCart: (id: number) => void,
     increaseProductInCart: (id: number) => boolean,
@@ -19,7 +21,7 @@ type ShoppingCartContextProps = {
     closeCartModal: () => void,
     openOrderModal: () => void,
     closeOrderModal: () => void,
-    checkOut: (nome: string, email: string) => void,
+    checkOut: (nome: string, email: string, observations: string) => void,
 }
 
 type ShoppingCartProviderProps = {
@@ -37,6 +39,8 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
     const [cartProducts, setProduct] = useState<ShoppingCartProductProps[]>([])
     const [isCartModalOpen, setCartModalOpen] = useState(false)
     const [isOrderModalOpen, setOrderModalOpen] = useState(false)
+    const [isWaitingOrder, setIsWaitingOrder] = useState(false)
+    const [isSucceedOrder, setIsSucceedOrder] = useState(false)
 
     function addProductToCart(product: ShoppingCartProductProps){
         const inCart = increaseProductInCart(product.id)
@@ -108,7 +112,7 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
         return inCart
     }
 
-    async function checkOut(nome: string, email: string){
+    async function checkOut(nome: string, email: string, observations: string){
         let order : Omit<ShoppingCartProductProps, 'image'>[] = []
 
         order = cartProducts.map(product => {
@@ -117,22 +121,30 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
         });
 
         const data = {
-            nome: nome,
-            clientEmail: email,
+            nome,
+            email,
+            observations,
             subject: "[Minions Store] - Pedido realizado com sucesso!",
             text: "vlw por comprar parceiro!",
             order
         }
 
+        setOrderModalOpen(true)
+        setIsWaitingOrder(true)
+
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        setIsSucceedOrder(false)
         /* await axios.post(MAILER_URL!, data)
         .then(res => {
+            setIsSucceedOrder(true)
             console.log(JSON.stringify(res))
         })
         .catch(res => {
+            setIsSucceedOrder(false)
             console.log(JSON.stringify(res))
         }) */
 
-        setOrderModalOpen(true)
+        setIsWaitingOrder(false)
     }
 
     function openCartModal(){
@@ -155,6 +167,8 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
         <ShoppingCartContext.Provider value={{
             numberSelectedProducts,
             cartProducts,
+            isWaitingOrder,
+            isSucceedOrder,
             addProductToCart,
             removeProductInCart,
             increaseProductInCart,
