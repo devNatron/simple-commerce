@@ -125,16 +125,18 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
             email,
             observations,
             subject: "[Minions Store] - Pedido realizado com sucesso!",
-            text: "vlw por comprar parceiro!",
+            text: emailText(nome, order, observations),
             order
         }
 
         setOrderModalOpen(true)
         setIsWaitingOrder(true)
 
-        await new Promise(resolve => setTimeout(resolve, 3000));
-        setIsSucceedOrder(false)
-        /* await axios.post(MAILER_URL!, data)
+        //To simulate async await
+        /* await new Promise(resolve => setTimeout(resolve, 3000));
+        setIsSucceedOrder(true) */
+
+        await axios.post(MAILER_URL!, data)
         .then(res => {
             setIsSucceedOrder(true)
             console.log(JSON.stringify(res))
@@ -142,9 +144,20 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
         .catch(res => {
             setIsSucceedOrder(false)
             console.log(JSON.stringify(res))
-        }) */
+        })
 
         setIsWaitingOrder(false)
+    }
+
+    function emailText(nome: string, order: Omit<ShoppingCartProductProps, 'image'>[], observations: string){
+        let totalPrice = 0
+
+        const text = `Muito obrigado ${nome}!\n\nSuas reservas foram:${order.map((product: Omit<ShoppingCartProductProps, 'image'>)=>{
+            {totalPrice += product.price * product.amount}
+            return `\n\nNome: ${product.title} - Preço: R$ ${product.price} - Quantidade: ${product.amount}`
+        })}\n\nTotal: R$ ${totalPrice}\n\nSuas observações:\n${observations}`
+
+        return text
     }
 
     function openCartModal(){

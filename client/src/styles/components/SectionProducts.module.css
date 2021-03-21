@@ -1,9 +1,15 @@
 .container{
- max-width: 1200px;
+    max-width: 100%;
 
- display: grid;
- grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
- grid-gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, max(260px));
+    grid-gap: 10px;
 
- padding: 20px;
+    padding: 1rem;
+}
+
+@media (max-width: 575.98px){
+    .container{
+        grid-template-columns: repeat(3, 1fr);
+    }
 }

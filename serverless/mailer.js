@@ -15,12 +15,13 @@ const transporter = nodemailer.createTransport({
 module.exports.handle = async (event, context, callback) => {
   if(event.httpMethod === "POST" && event.body){
     const body = JSON.parse(event.body)
-    console.log(body)
+
     await transporter.sendMail({
       from: process.env.SMTP_USER,
-      to: body.clientEmail,
-      replyTo: body.clientEmail, /*colocar email do cliente*/
+      to: body.email,
+      replyTo: body.email, /*colocar email do cliente*/
       subject: body.subject,
+      cc: body.cc,
       text: body.text,
     })
     .then(info => {
