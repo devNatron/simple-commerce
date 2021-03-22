@@ -21,7 +21,6 @@ export function Form(){
         const observations = String(form.get('observations'))
 
         if(!nome || !email){
-            console.log("alou")
             if(Notification.permission === 'granted'){
                 new Notification('Campos faltantes', {
                     body: `Os campos ${nome ? "": "nome"}${email ? "": ",email"} não estão preenchidos!`
