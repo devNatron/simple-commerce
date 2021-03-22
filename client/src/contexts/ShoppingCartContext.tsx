@@ -114,7 +114,6 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
     }
 
     async function checkOut(nome: string, email: string, observations: string){
-
         let order : Omit<ShoppingCartProductProps, 'image'>[] = []
 
         order = cartProducts.map(product => {
@@ -136,16 +135,16 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
         setIsWaitingOrder(true)
 
         //To simulate async await
-        await new Promise(resolve => setTimeout(resolve, 3000));
-        setIsSucceedOrder(true)
+        /* await new Promise(resolve => setTimeout(resolve, 3000));
+        setIsSucceedOrder(true) */
 
-        /* await axios.post(MAILER_URL!, data)
+        await axios.post(MAILER_URL!, data)
         .then(()=> {
             setIsSucceedOrder(true)
         })
         .catch(() => {
             setIsSucceedOrder(false)
-        }) */
+        })
 
         setIsWaitingOrder(false)
     }
