@@ -11,8 +11,8 @@ function Home() {
   return (
     <ShoppingCartProvider>
       <Header/>
+      <ShoppingCart/>
       <div className={styles.container}>
-        <ShoppingCart/>
         <SectionProducts/>
         <Form/>
       </div>

@@ -13,6 +13,7 @@ type ShoppingCartContextProps = {
     cartProducts: ShoppingCartProductProps[],
     isWaitingOrder: boolean,
     isSucceedOrder: boolean,
+    isCartModalOpen: boolean,
     addProductToCart: (product: ShoppingCartProductProps) => void,
     removeProductInCart: (id: number) => void,
     increaseProductInCart: (id: number) => boolean,
@@ -137,13 +138,11 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
         setIsSucceedOrder(true) */
 
         await axios.post(MAILER_URL!, data)
-        .then(res => {
+        .then(()=> {
             setIsSucceedOrder(true)
-            console.log(JSON.stringify(res))
         })
-        .catch(res => {
+        .catch(() => {
             setIsSucceedOrder(false)
-            console.log(JSON.stringify(res))
         })
 
         setIsWaitingOrder(false)
@@ -155,7 +154,7 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
         const text = `Muito obrigado ${nome}!\n\nSuas reservas foram:${order.map((product: Omit<ShoppingCartProductProps, 'image'>)=>{
             {totalPrice += product.price * product.amount}
             return `\n\nNome: ${product.title} - Preço: R$ ${product.price} - Quantidade: ${product.amount}`
-        })}\n\nTotal: R$ ${totalPrice}\n\nSuas observações:\n${observations}`
+        })}\n\nTotal: R$ ${totalPrice.toFixed(2)}\n\nSuas observações:\n${observations}`
 
         return text
     }
@@ -182,6 +181,7 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
             cartProducts,
             isWaitingOrder,
             isSucceedOrder,
+            isCartModalOpen,
             addProductToCart,
             removeProductInCart,
             increaseProductInCart,

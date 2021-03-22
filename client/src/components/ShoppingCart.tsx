@@ -7,7 +7,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { ShoppingCartContext } from '../contexts/ShoppingCartContext'
 
 export function ShoppingCart(){
-    const {numberSelectedProducts, openCartModal} = useContext(ShoppingCartContext)
+    const {numberSelectedProducts, isCartModalOpen, openCartModal} = useContext(ShoppingCartContext)
     const [addProductEffect, setAddProductEffect] = useState(false)
 
     function openCart(){
@@ -23,11 +23,15 @@ export function ShoppingCart(){
     }, [numberSelectedProducts])
 
     return(
-        <div className={`${styles.ShoppingCart} ${addProductEffect ? styles.ProductEffect : null}`} onClick={openCart}>
-            <div className={`${styles.numberProducts}`}>
-                {numberSelectedProducts}
-            </div>
-            <FontAwesomeIcon icon={faShoppingCart} className={styles.icon}/>
+        <div className={styles.ShoppingCartContainer}>
+            {!isCartModalOpen &&
+                <div className={`${styles.ShoppingCart} ${addProductEffect ? styles.ProductEffect : null}`} onClick={openCart}>
+                    <div className={`${styles.numberProducts}`}>
+                        {numberSelectedProducts}
+                    </div>
+                    <FontAwesomeIcon icon={faShoppingCart} className={styles.icon}/>
+                </div>
+            }
         </div>
     )
 }

@@ -72,8 +72,9 @@
 }
 
 .cartContainer .item .amountBox{
-    height: 1,625rem;
+    height: 1.625rem;
     width: 6.25rem;
+    margin: 0 5px;
 
     padding: 2px 0px;
     border: 1px solid black;
@@ -87,14 +88,11 @@
     font-size: 1rem;
 }
 
-.cartContainer .item .amountBox button:first-child .icon{
-    margin-right: 1rem;
-    margin-left: 0.5rem;
-}
+.cartContainer .item .amountBox p{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 
-.cartContainer .item .amountBox button:last-child .icon{
-    margin-left: 1rem;
-    margin-right: 0.5rem;
 }
 
 .cartContainer .totalOrder{
@@ -117,4 +115,22 @@
 
 .modalWrapper .scrollToCheckOut:hover{
     background: var(--blue);
+}
+
+@media (max-width: 470px){
+    .cartContainer .item .productName{
+        font-size: 0.8rem;
+    }
+
+    .cartContainer .item .productPrice{
+        font-size: 0.8rem;
+    }
+
+    .cartContainer .item .amountBox p{
+        font-weight: 400;
+    }
+
+    .cartContainer .item .amountBox .icon{
+        font-size: 0.8rem;
+    }
 }

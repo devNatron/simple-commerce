@@ -60,3 +60,35 @@
 .product .priceBox button:hover{
     background: var(--blue);
 }
+
+@media (max-width: 575.98px){
+    .product{
+        padding: 10px;
+    }
+    .product .imagem{
+        height: 140px;
+    }
+}
+
+@media (max-width: 470px){
+    .product .priceBox{
+        display: none;
+    }
+    
+    .product .priceBox p{
+        font-size: 0.8rem;
+    }
+
+    .product .productInfo{
+        height: 5.5rem;
+        font-size: 0.8rem;
+    }
+
+    .product .productInfo .descripton{
+        font-size: 0.8rem;
+    }
+
+    .product .productInfo h2{
+        font-size: 1rem;
+    }
+}

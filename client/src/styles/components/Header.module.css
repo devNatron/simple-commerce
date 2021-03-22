@@ -15,3 +15,13 @@
     margin-left: 1rem;
     width: 3rem;
 }
+
+@media (max-width: 470px){
+    .headerContainer h1{
+        font-size: 2rem;
+    }
+
+    .headerContainer img{
+        width: 2rem;
+    }
+}

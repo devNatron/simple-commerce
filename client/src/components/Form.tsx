@@ -20,8 +20,8 @@ export function Form(){
     }
 
     return(
-        <Element name='Form'>
             <div className={styles.FormContainer}>
+                <Element name='Form'></Element>
                 <header>
                     <h2>Finalizar Pedido</h2>
                 </header>
@@ -36,6 +36,5 @@ export function Form(){
                     </button>
                 </form>
             </div>
-        </Element>
     )
 }
