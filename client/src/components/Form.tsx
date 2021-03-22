@@ -1,11 +1,15 @@
 import styles from '../styles/components/Form.module.css'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import {Element} from 'react-scroll'
 
 import { ShoppingCartContext } from '../contexts/ShoppingCartContext';
 
 export function Form(){
-    const {checkOut} = useContext(ShoppingCartContext)
+    const {checkOut, numberSelectedProducts} = useContext(ShoppingCartContext)
+
+    useEffect(() => {
+        Notification.requestPermission();
+    }, [])
 
     function handleSubmit(e: React.SyntheticEvent){
         e.preventDefault();
@@ -15,6 +19,25 @@ export function Form(){
         const nome = String(form.get('nome'))
         const email = String(form.get('email'))
         const observations = String(form.get('observations'))
+
+        if(!nome || !email){
+            console.log("alou")
+            if(Notification.permission === 'granted'){
+                new Notification('Campos faltantes', {
+                    body: `Os campos ${nome ? "": "nome"}${email ? "": ",email"} não estão preenchidos!`
+                })
+            }
+            return
+        }
+
+        if(numberSelectedProducts === 0){
+            if(Notification.permission === 'granted'){
+                new Notification('Nenhum produto selecionado', {
+                    body: `Nenhum produto foi selecionado`
+                })
+            }
+            return
+        }
 
         checkOut(nome, email, observations)
     }
