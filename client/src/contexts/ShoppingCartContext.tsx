@@ -127,8 +127,6 @@ export function ShoppingCartProvider({children}: ShoppingCartProviderProps){
             observations,
             subject: "[Minions Store] - Pedido realizado com sucesso!",
             text: emailText(nome, order, observations),
-            cc: process.env.REACT_APP_CC_EMAIL,
-            order
         }
 
         setOrderModalOpen(true)

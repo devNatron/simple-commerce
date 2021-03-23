@@ -15,8 +15,10 @@ export function ShoppingCart(){
     }
 
     useEffect(() => {
+        if(numberSelectedProducts <= 0)
+            return
+            
         setAddProductEffect(true)
-        
         setTimeout(() => {
             setAddProductEffect(false)
         }, 500);
