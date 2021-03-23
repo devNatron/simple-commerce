@@ -1,6 +1,6 @@
 # Simple Commerce
 
-<img src="example-image.png" alt="exemple image">
+<img src="example-image.png" alt="exemple image" width="800" height="450">
 
 > Um responsivo *serverless* comercio digital simples, com listagem dos produtos, carrinho de compras com indicação da quantidade, modal para carrinho de compras que lista os produtos selecionados podendo assim acrescentar, decrementar ou remover produtos e o formulário para finalizar o pedido chamando o serviço *serverless* para disparar o email do pedido.
 
@@ -51,9 +51,6 @@ SMTP_PORT=
 SMTP_USER=
 SMTP_PASS=
 ```
-
-
-
 
 ## ☕ Usando o projeto
 
