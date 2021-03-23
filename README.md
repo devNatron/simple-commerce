@@ -4,6 +4,8 @@
 
 > Um responsivo *serverless* comercio digital simples, com listagem dos produtos, carrinho de compras com indicação da quantidade, modal para carrinho de compras que lista os produtos selecionados podendo assim acrescentar, decrementar ou remover produtos e o formulário para finalizar o pedido chamando o serviço *serverless* para disparar o email do pedido.
 
+[Confira - Ir para o site](http://minionstore.s3-website-sa-east-1.amazonaws.com/).
+
 ## 💻 Pré-requisitos
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
