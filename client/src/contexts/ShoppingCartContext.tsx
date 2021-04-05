@@ -1,9 +1,8 @@
 import React, {createContext, ReactNode, useState} from 'react'
+import axios from 'axios'
 
 import {ProductProps} from '../components/ProductCard'
 import { ShoppingCartModal } from '../components/ShoppingCartModal';
-
-import axios from 'axios'
 import { OrderModal } from '../components/OrderModal';
 
 const MAILER_URL = process.env.REACT_APP_MAILER_URL

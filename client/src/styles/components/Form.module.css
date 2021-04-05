@@ -1,4 +1,5 @@
 .FormContainer{
+    position: relative;
     width: 600px;
 
     background-color: var(--white);
@@ -52,16 +53,37 @@
     transition: background ease 0.2s;
 }
 
-.FormContainer form button:hover{
-    background: var(--blue);
-}
-
 .observations{
     margin-bottom: 1rem;
 
     border-radius: 0;
     border: 2px solid black;
 }
+
+@keyframes submitWrong {
+    0% {background-color: var(--white);}
+    50% {background-color: var(--red);}
+    100% {background-color: var(--white);}
+}
+
+.FormContainer form button.submitWrong{
+    background-color: var(--white);
+    animation-name: submitWrong;
+    animation-duration: 0.5s;
+}
+
+@keyframes submitRight {
+    0% {background-color: var(--white);}
+    50% {background-color: var(--blue);}
+    100% {background-color: var(--white);}
+}
+
+.FormContainer form button.submitRight{
+    background-color: var(--white);
+    animation-name: submitRight;
+    animation-duration: 0.5s;
+}
+
 
 @media (max-width: 600px){
     .FormContainer{
